@@ -16,5 +16,38 @@ namespace DibujarRectangulosFactory
         {
             InitializeComponent();
         }
+
+        private void picColor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCrear_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int x = int.Parse(txtX.Text);
+                int y = int.Parse(txtY.Text);
+                Color color = picColor.BackColor;
+
+                Figura rectangulo = FiguraFactory.CrearFigura("Rectangulo", color, x, y);
+
+                using (Graphics g = panelDibujo.CreateGraphics())
+                {
+                    rectangulo.Dibujar(g);
+                }
+
+                txtContador.Text = Rectangulo.Contador.ToString();
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Las coordenadas deben ser números enteros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
+
